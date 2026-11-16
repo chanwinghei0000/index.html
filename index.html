@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>陳永晞</title>
+<style>
+:root{--bg:#fff;--tx:#243049;--mu:#66728a;--pr:#4a62b8;--pr2:#d9e2f2;--ye:#f4d21f;--bd:#dde3ef;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121722;--tx:#e8ecf5;--mu:#9aa5bb;--pr:#6c86e0;--pr2:#202a42;--bd:#2c374e}}
+:root[data-theme="dark"]{--bg:#121722;--tx:#e8ecf5;--mu:#9aa5bb;--pr:#6c86e0;--pr2:#202a42;--bd:#2c374e}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.7 system-ui,-apple-system,"PingFang HK","Noto Sans HK","Microsoft JhengHei",sans-serif}
+.top{display:flex;align-items:center;gap:12px;padding:10px 14px;max-width:1000px;margin:auto}
+.logo{width:46px;height:46px;border-radius:50%;background:var(--pr);color:#fff;display:grid;place-items:center;font-size:1.3rem;font-weight:700;flex:none}
+.top b{font-size:1.15rem;display:block;line-height:1.2}.top small{color:var(--mu)}
+.bar{background:var(--pr);color:#fff}.bar>div{max-width:1000px;margin:auto}
+#mb{background:none;color:#fff;font-weight:600;letter-spacing:.1em;padding:12px 14px;width:100%;text-align:left;border-radius:0}
+nav{display:none;flex-direction:column}nav.open{display:flex}
+nav a{color:#fff;text-decoration:none;padding:10px 16px;border-top:1px solid #ffffff30}
+.hero{height:240px;background:linear-gradient(135deg,#6f86d6,#3d4f99) center/cover;display:flex;align-items:flex-end}
+.hero h2{margin:0;width:100%;color:#fff;font-size:1.6rem;padding:60px 18px 18px;background:linear-gradient(transparent,#000a);text-shadow:0 1px 4px #0008}
+.sec{padding:34px 16px;text-align:center}.sec>div{max-width:1000px;margin:auto}
+.sec h2{display:inline-block;margin:0 0 18px;font-size:1.6rem;color:var(--pr)}
+.sec.bl{background:var(--pr);color:#fff}.sec.bl h2{color:#fff}
+.sec.lt{background:var(--pr2)}
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;text-align:left}
+.rail .card{flex:0 0 82%;max-width:340px;scroll-snap-align:start}
+.stack{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));text-align:left}
+.card{display:block;text-decoration:none;color:var(--tx);background:var(--bg);border-radius:6px;overflow:hidden;border:1px solid var(--bd)}
+.card .im{aspect-ratio:4/3;background:linear-gradient(135deg,#8fa2e0,#5b6fc2);display:grid;place-items:center;font-size:2.4rem;overflow:hidden}
+.card img{width:100%;height:100%;object-fit:cover}
+.card div.t{padding:12px 14px}.card small{color:var(--mu);display:block}.card b{font-size:1.05rem}
+.about{border-top:6px solid var(--ye);text-align:left}
+.about img{width:100%;max-height:340px;object-fit:cover;display:block}
+.about .in{max-width:1000px;margin:auto;padding:20px 16px 34px}.about h2{color:var(--pr);margin:.2em 0}
+.pre{white-space:pre-wrap}
+.btn,button{background:var(--pr);color:#fff;border:0;padding:8px 18px;border-radius:6px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+.sec.bl .btn{background:#fff;color:var(--pr)}.btn.g,button.g{background:var(--pr2);color:var(--pr)}button.d{background:#c0392b}
+.wrap{max-width:860px;margin:auto;padding:22px 16px 40px}
+.wrap .media{display:grid;gap:14px;margin-top:14px}
+.media img,.media video{width:100%;border-radius:8px;max-height:480px;object-fit:contain;background:#000}
+.yt{position:relative;padding-top:56.25%}.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:8px}
+footer{background:var(--pr2);padding:28px 16px 90px}footer .c{max-width:1000px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px}
+footer h4{margin:0 0 6px;color:var(--pr)}footer a{display:block;color:var(--tx);text-decoration:none;font-size:.9rem;padding:2px 0}
+footer p{max-width:1000px;margin:20px auto 0;font-size:.8rem;color:var(--mu)}
+input,textarea,select{font:inherit;color:var(--tx);width:100%;padding:9px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);margin:4px 0 10px}
+textarea{min-height:130px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}.row input{flex:1;margin:0;width:auto}
+.box{border:1px solid var(--bd);border-radius:10px;padding:16px;margin:16px auto;max-width:860px;background:var(--bg);text-align:left;color:var(--tx)}
+.mi{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:.9rem;word-break:break-all}
+#nt{position:fixed;inset:0;z-index:100;background:rgba(8,12,28,.55);backdrop-filter:blur(3px);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));text-align:center;overflow-y:auto}#nt[hidden]{display:none}#nt span{white-space:pre-wrap;font-size:1.4rem;font-weight:600;line-height:1.6;width:min(92vw,640px);background:var(--pr);padding:30px 24px;border-radius:16px;box-shadow:0 10px 40px #0006}#nt button{background:#fff;color:var(--pr);padding:12px 36px;font-size:1.05rem;border-radius:999px;font-weight:600}
+.adm{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:5}
+small{color:var(--mu)}
+@media(min-width:760px){nav{display:flex!important;flex-direction:row}nav a{border:0}#mb{display:none}.hero{height:360px}.rail .card{flex-basis:300px}}
+</style>
+</head>
+<body>
+<div id="nt" hidden><span id="nts"></span><button id="ntx">關閉 ✕</button></div>
+<div class="top"><div class="logo" id="lg">我</div><div><b id="sn"></b><small id="st"></small></div></div>
+<div class="bar"><div><button id="mb">☰ MENU</button><nav id="nav"></nav></div></div>
+<div id="main"></div>
+<footer><div class="c" id="fc"></div><p id="cp"></p></footer>
+<div class="adm" id="adm" hidden><button id="tg">⚙ 管理模式</button></div>
+<script>
+const $=id=>document.getElementById(id);
+let authed=false,authOwner=false,ntClosed=false,db,assets,isAdmin=false,adminOn=false,pages=[],cfg={name:"陳永晞",tagline:"分享我嘅生活、作品同影片"},draft=null,loaded=false;
+const CAT={page:"網頁",news:"最新動態",work:"我的作品"};
+const el=(t,p={},...k)=>{const e=document.createElement(t);for(const x in p){x==="class"?e.className=p[x]:x.startsWith("on")?e.addEventListener(x.slice(2),p[x]):e.setAttribute(x,p[x])}k.flat().forEach(c=>e.append(c));return e};
+const ytId=u=>{const m=String(u).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);return m&&m[1]};
+const cur=()=>decodeURIComponent(location.hash.slice(1))||"home";
+const fd=o=>new Date(o||Date.now()).toLocaleDateString("zh-HK",{day:"numeric",month:"short",year:"numeric"});
+const by=c=>pages.filter(p=>(p.cat||"page")===c).sort((a,b)=>(b.order||0)-(a.order||0));
+const up=async f=>(await assets.upload(f)).url;
+function mediaNode(m){
+  if(m.type==="yt"){const i=ytId(m.src);return i?el("div",{class:"yt"},el("iframe",{src:"https://www.youtube-nocookie.com/embed/"+i,allowfullscreen:"",loading:"lazy"})):el("small",{},"無效連結")}
+  if(m.type==="video")return el("video",{src:m.src,controls:"",playsinline:""});
+  return el("img",{src:m.src,alt:"",loading:"lazy"});
+}
+function card(p){
+  const im=(p.media||[]).find(m=>m.type==="image"),hasV=(p.media||[]).some(m=>m.type!=="image");
+  return el("a",{class:"card",href:"#"+p.id},el("div",{class:"im"},im?el("img",{src:im.src,alt:"",loading:"lazy"}):(hasV?"▶":"📄")),
+    el("div",{class:"t"},el("small",{},fd(p.order)),el("b",{},p.title)));
+}
+function sec(cls,title,items,rail,more){
+  if(!items.length)return null;
+  return el("section",{class:"sec "+cls},el("div",{},el("h2",{},title),el("div",{class:rail?"rail":"stack"},...items.slice(0,6).map(card)),
+    el("div",{style:"margin-top:18px"},el("a",{class:"btn",href:"#"+more},"查看更多"))));
+}
+function render(){
+  $("sn").textContent=cfg.name;$("st").textContent=cfg.tagline;$("lg").textContent=[...cfg.name][0]||"我";document.title=cfg.name;
+  $("cp").textContent="Copyright © "+new Date().getFullYear()+" "+cfg.name+". All Rights Reserved.";
+  const id=cur();notice();
+  $("nav").replaceChildren(el("a",{href:"#home"},"首頁"),el("a",{href:"#news"},"最新動態"),el("a",{href:"#work"},"我的作品"),...by("page").reverse().map(p=>el("a",{href:"#"+p.id},p.title)));
+  $("fc").replaceChildren(...["page","news","work"].map(c=>el("div",{},el("h4",{},CAT[c]),...by(c).slice(0,6).map(p=>el("a",{href:"#"+p.id},p.title)))));
+  const m=$("main");m.replaceChildren();
+  if(adminOn&&draft){m.append(editor());return}
+  if(id==="home"){
+    m.append(el("div",{class:"hero",style:cfg.hero?`background-image:url("${cfg.hero}")`:""},el("h2",{},cfg.heroTitle||cfg.name)));
+    if(adminOn){m.append(settings());if(authOwner)m.append(accBox())}
+    m.append(sec("lt","最新動態",by("news"),true,"news")||"");
+    m.append(el("section",{class:"about"},cfg.aboutImg?el("img",{src:cfg.aboutImg,alt:""}):"",el("div",{class:"in"},el("h2",{},"關於我"),
+      el("div",{class:"pre"},cfg.intro||"歡迎來到我的個人網站！呢度會分享我嘅自我介紹、作品、相片同影片。"))));
+    m.append(sec("bl","我的作品",by("work"),false,"work")||"");
+  }else if(id==="news"||id==="work"){
+    m.append(el("div",{class:"wrap"},el("h2",{style:"color:var(--pr)"},CAT[id]),el("div",{class:"stack"},...by(id).map(card))));
+  }else{
+    const p=pages.find(x=>x.id===id);
+    if(!p){m.append(el("div",{class:"wrap"},loaded?"找不到此網頁。":"載入中…"));return}
+    m.append(el("div",{class:"wrap"},el("small",{},CAT[p.cat||"page"]+" · "+fd(p.order)),el("h2",{style:"margin:.2em 0;color:var(--pr)"},p.title),el("div",{class:"pre"},p.body||""),el("div",{class:"media"},...(p.media||[]).map(mediaNode))));
+    if(adminOn)m.append(el("div",{class:"row wrap"},el("button",{onclick:()=>{draft=JSON.parse(JSON.stringify(p));render()}},"編輯此頁"),
+      el("button",{class:"d",onclick:async()=>{if(confirm("確定刪除？")){await db.collection("pages").doc(p.id).delete();location.hash="home"}}},"刪除此頁")));
+  }
+  if(adminOn&&!draft)m.append(el("div",{class:"row wrap"},el("button",{onclick:()=>{draft={id:"p"+Date.now().toString(36),title:"",body:"",media:[],cat:"page",order:Date.now()};render()}},"＋ 新增網頁")));
+}
+function notice(){const b=$("nt");let seen="";try{seen=localStorage.getItem("ntseen")||""}catch(e){}
+  b.hidden=!(cfg.notice&&cfg.noticeOn!==false&&!ntClosed);$("nts").textContent="📢 "+(cfg.notice||"")}
+const OWNER="08ddf546f4806adf9162512fe51f2b3fb64587eebdc1aeef48b13fd8af57e0c2";
+const H=async(u,p)=>[...new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(u+":"+p+":sws")))].map(b=>b.toString(16).padStart(2,"0")).join("");
+function authOk(n,box){authed=true;authOwner=n==="swscwh";box.remove();adminOn=true;$("tg").textContent="✔ 完成管理";render()}
+function change(n,old,box){const a=el("input",{type:"password",placeholder:"新密碼（至少 8 個字元）",autocomplete:"new-password"}),b=el("input",{type:"password",placeholder:"再輸入新密碼",autocomplete:"new-password"}),er=el("small",{style:"color:#c0392b"});
+  box.firstChild.replaceChildren(el("h3",{style:"margin-top:0"},"密碼已過期，請更改密碼"),el("small",{},"管理員密碼每 30 日必須更改一次。"),a,b,er,el("button",{onclick:async()=>{
+    if(a.value.length<8)return er.textContent="密碼至少 8 個字元";
+    if(a.value!==b.value)return er.textContent="兩次密碼不一致";
+    const h=await H(n,a.value);if(h===old)return er.textContent="新密碼不可與舊密碼相同";
+    try{await db.collection("accounts").doc(n).set({h,changed:Date.now()})}catch(e){return er.textContent="儲存失敗，請確認你有編輯權限"}
+    authOk(n,box)}},"更改並登入"))}
+function login(){const u=el("input",{type:"text",placeholder:"帳戶",autocomplete:"username"}),p=el("input",{type:"password",placeholder:"密碼",autocomplete:"current-password"}),er=el("small",{style:"color:#c0392b"});
+  const box=el("div",{style:"position:fixed;inset:0;z-index:200;background:rgba(8,12,28,.6);display:grid;place-items:center;padding:20px"},el("div",{class:"box",style:"width:min(92vw,360px)"},el("h3",{style:"margin-top:0"},"管理員登入"),u,p,er,el("div",{class:"row"},el("button",{onclick:go},"登入"),el("button",{class:"g",onclick:()=>box.remove()},"取消"))));
+  async function go(){const n=u.value.trim(),h=await H(n,p.value);let ok=false,exp=false;
+    if(db){try{const d=await db.collection("accounts").doc(n).get();if(d.exists){ok=d.data().h===h;exp=ok&&Date.now()-(d.data().changed||0)>2592e6}else if(n==="swscwh"&&h===OWNER){ok=true;exp=true}}catch(e){}}
+    if(!ok){er.textContent="帳戶或密碼錯誤";return}
+    if(exp)return change(n,h,box);authOk(n,box)}
+  p.onkeydown=e=>{if(e.key==="Enter")go()};document.body.append(box);u.focus()}
+function accBox(){const u=el("input",{type:"text",placeholder:"新帳戶名稱"}),p=el("input",{type:"password",placeholder:"密碼"}),l=el("div");
+  const ld=async()=>{try{const s=await db.collection("accounts").get();l.replaceChildren(...s.docs.map(d=>el("div",{class:"mi"},el("span",{style:"flex:1"},d.id),el("button",{class:"d",onclick:async()=>{await db.collection("accounts").doc(d.id).delete();ld()}},"刪除"))))}catch(e){l.textContent="暫時未能讀取帳戶列表"}};ld();
+  return el("div",{class:"box"},el("h3",{style:"margin-top:0"},"其他管理員帳戶"),l,u,p,el("button",{onclick:async()=>{const n=u.value.trim();if(!n||!p.value)return;await db.collection("accounts").doc(n).set({h:await H(n,p.value),changed:0});u.value=p.value="";ld()}},"新增帳戶"))}
+function settings(){
+  const f=(v)=>el("input",{type:"text",value:v||""}),n=f(cfg.name),t=f(cfg.tagline),h=f(cfg.heroTitle),i=el("textarea");i.value=cfg.intro||"";const nt=el("textarea");nt.value=cfg.notice||"";const on=el("input",{type:"checkbox"});on.checked=cfg.noticeOn!==false;on.style.cssText="width:auto;margin:0 6px 0 0";
+  const nc={...cfg},st=el("small"),file=(k,lbl)=>{const x=el("input",{type:"file",accept:"image/*"});x.onchange=async()=>{if(!assets)return st.textContent="需要編輯權限";st.textContent="上載中…";try{nc[k]=await up(x.files[0]);st.textContent=lbl+"已上載，記得儲存"}catch(e){st.textContent="失敗："+(e.message||e.code)}};return el("div",{},lbl,x)};
+  return el("div",{class:"box"},el("h3",{style:"margin-top:0"},"網站設定"),"網站名稱",n,"標語",t,"橫額標題",h,"關於我內容",i,"最新消息公告（訪客可關閉；留空即不顯示）",nt,el("label",{},on,"顯示公告"),file("hero","橫額相片"),file("aboutImg","關於我相片"),st,
+    el("div",{class:"row"},el("button",{onclick:async()=>{await db.collection("site").doc("config").set({...nc,name:n.value,tagline:t.value,heroTitle:h.value,intro:i.value,notice:nt.value.trim(),noticeOn:on.checked,noticeId:(nt.value.trim()!==(cfg.notice||"")||!cfg.noticeId)?Date.now():cfg.noticeId});st.textContent="已儲存"}},"儲存設定")));
+}
+function editor(){
+  const ti=el("input",{type:"text",value:draft.title,placeholder:"標題"}),bo=el("textarea");bo.value=draft.body||"";
+  const ca=el("select",{},...Object.entries(CAT).map(([k,v])=>el("option",{value:k},v)));ca.value=draft.cat||"page";
+  const list=el("div"),yu=el("input",{type:"text",placeholder:"貼上 YouTube 連結"}),st=el("small"),fi=el("input",{type:"file",accept:"image/*,video/*",multiple:""});
+  const redraw=()=>list.replaceChildren(...draft.media.map((x,i)=>el("div",{class:"mi"},({yt:"▶ YouTube",video:"🎬 影片",image:"🖼 相片"})[x.type],el("span",{style:"flex:1"},x.src.slice(0,44)),
+    el("button",{class:"g",onclick:()=>{if(i>0){[draft.media[i-1],draft.media[i]]=[draft.media[i],draft.media[i-1]];redraw()}}},"↑"),
+    el("button",{class:"d",onclick:()=>{draft.media.splice(i,1);redraw()}},"✕"))));
+  redraw();
+  fi.onchange=async()=>{if(!assets)return st.textContent="需要編輯權限";for(const f of fi.files){st.textContent="上載中："+f.name;try{draft.media.push({type:f.type.startsWith("video")?"video":"image",src:await up(f)});redraw()}catch(e){st.textContent="失敗："+(e.message||e.code)+"（上限 20MB）";return}}st.textContent="完成";fi.value=""};
+  return el("div",{class:"wrap"},el("h2",{},"編輯網頁"),"分類",ca,"標題",ti,"內容",bo,el("h3",{},"影片及相片（第一張相片會做封面）"),list,
+    el("div",{class:"row"},yu,el("button",{onclick:()=>{if(!ytId(yu.value))return alert("YouTube 連結無效");draft.media.push({type:"yt",src:yu.value.trim()});yu.value="";redraw()}},"加入 YouTube")),
+    el("div",{class:"row"},fi,st),
+    el("div",{class:"row"},el("button",{onclick:async()=>{if(!ti.value.trim())return alert("請輸入標題");const d=draft;d.title=ti.value.trim();d.body=bo.value;d.cat=ca.value;
+      await db.collection("pages").doc(d.id).set({title:d.title,body:d.body,media:d.media,cat:d.cat,order:d.order});draft=null;location.hash=d.id;render()}},"儲存"),
+      el("button",{class:"g",onclick:()=>{draft=null;render()}},"取消")));
+}
+$("mb").onclick=()=>$("nav").classList.toggle("open");
+$("ntx").onclick=()=>{ntClosed=true;$("nt").hidden=true};
+$("nav").onclick=()=>$("nav").classList.remove("open");
+$("tg").onclick=()=>{if(!adminOn&&!authed)return login();adminOn=!adminOn;draft=null;$("tg").textContent=adminOn?"✔ 完成管理":"⚙ 管理模式";render()};
+addEventListener("hashchange",()=>{draft=null;render();scrollTo(0,0)});
+render();
+(async()=>{
+  try{
+    const user=await claude.use("user");isAdmin=user?user.canEdit():false;
+    db=await claude.use("db");assets=await claude.use("assets");
+    $("adm").hidden=!(isAdmin&&db);
+    if(!db){loaded=true;render();return}
+    db.collection("pages").onSnapshot(s=>{pages=s.docs.map(d=>({id:d.id,...d.data()}));loaded=true;if(!draft)render()},()=>{loaded=true;render()});
+    db.collection("site").doc("config").onSnapshot(s=>{if(s.exists){if(s.data().noticeId!==cfg.noticeId)ntClosed=false;cfg={...cfg,...s.data()}}if(!draft)render()});
+  }catch(e){loaded=true;render()}
+})();
+</script>
+</body>
+</html>
