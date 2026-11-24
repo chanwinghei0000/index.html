@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#155e75">
+<title>約人出街｜V1.0.0</title>
+<style>
+:root{--ink:#16323b;--muted:#64777d;--brand:#0e7490;--bg:#f3f8f9;--card:#fff;--line:#dce8eb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,#155e75,#0e7490);color:#fff;padding:24px max(18px,calc((100% - 1100px)/2))}
+header h1{margin:0;font-size:27px}header p{margin:4px 0 0;opacity:.9}.wrap{max-width:1100px;margin:auto;padding:16px}
+.top{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 16px}.pill{background:#e1f2f5;border-radius:999px;padding:7px 12px;font-size:14px}
+nav{display:flex;gap:8px;overflow:auto;padding:4px 0 14px}nav button{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:12px;padding:10px 14px;color:var(--ink)}
+nav button.active{background:var(--brand);color:white;border-color:var(--brand)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:0 3px 14px #1233}
+.card h2{font-size:19px;margin:0 0 12px}.muted{color:var(--muted);font-size:14px}
+input,textarea,select{width:100%;padding:11px;border:1px solid #cbdadd;border-radius:10px;background:#fff;font:inherit;margin:5px 0 10px}
+textarea{min-height:90px;resize:vertical}label{font-size:14px;font-weight:600}
+button,.btn{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--brand);color:white;font:inherit}
+button.secondary{background:#e7f1f3;color:var(--ink)}button.danger{background:#b42318}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.row button{flex:0 0 auto}
+.hidden{display:none!important}.tab{display:none}.tab.active{display:block}
+.notice{background:#fff7df;border:1px solid #f2d58b;border-radius:12px;padding:12px;font-size:14px}
+.result{padding:10px 0;border-bottom:1px solid var(--line)}.result:last-child{border:0}
+img.postimg{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-top:8px}
+footer{text-align:center;color:var(--muted);padding:28px 12px;font-size:13px}
+small{color:var(--muted)}.weatherbig{font-size:30px;font-weight:700}
+@media(min-width:760px){.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}}
+</style>
+</head>
+<body>
+<header><h1>約人出街</h1><p>約朋友・分享相片・睇天氣・查交通　<small style="color:#d8f3f8">V1.0.0</small></p></header>
+<div class="wrap">
+ <div class="top"><span class="pill" id="clock">香港時間載入中…</span><span class="pill" id="locStatus">定位未啟用</span><span class="pill" id="cloudStatus">雲端未連接</span></div>
+ <nav>
+  <button class="active" data-tab="home">總覽</button><button data-tab="meet">約人表格</button><button data-tab="posts">相片發佈</button><button data-tab="weather">天氣</button><button data-tab="transport">交通到站</button><button data-tab="settings">設定／雲端</button>
+ </nav>
+ <section id="home" class="tab active">
+  <div class="hero">
+   <div class="card"><h2>今日出街概覽</h2><div class="weatherbig" id="homeTemp">天氣資料載入中…</div><div id="homeWeather" class="muted">正在連接香港天文台</div><p id="outfit">穿衣建議：取得天氣後顯示</p><div class="row"><button onclick="refreshWeather()">更新天氣</button><button class="secondary" onclick="enableLocation()">啟用定位</button></div></div>
+   <div class="card"><h2>快速約人</h2><p class="muted">填寫活動資料，再用 WhatsApp 傳送畀朋友或群組。</p><button onclick="showTab('meet')">建立約會</button></div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+   <div class="card"><h2>天氣警告</h2><div id="warningBox" class="muted">讀取中…</div></div>
+   <div class="card"><h2>定位</h2><div id="locationText" class="muted">未取得位置。按「啟用定位」後，瀏覽器會詢問你是否允許。</div></div>
+  </div>
+ </section>
+ <section id="meet" class="tab">
+  <div class="card"><h2>約人出街表格</h2>
+   <label>活動名稱</label><input id="eventName" placeholder="例如：行山／食飯／睇戲">
+   <div class="row"><div><label>日期</label><input id="eventDate" type="date"></div><div><label>時間</label><input id="eventTime" type="time"></div></div>
+   <label>集合地點</label><input id="eventPlace" placeholder="例如：尖沙咀港鐵站 A1 出口">
+   <label>交通／備註</label><textarea id="eventNote" placeholder="例如：搭港鐵去、記得帶雨傘…"></textarea>
+   <label>發起人／聯絡方法（選填）</label><input id="eventHost" placeholder="你的稱呼或聯絡資料">
+   <div class="row"><button onclick="shareWhatsApp()">用 WhatsApp 分享</button><button class="secondary" onclick="copyInvite()">複製邀請內容</button></div>
+   <p class="muted">WhatsApp 會開啟分享／對話畫面，由你選擇個人或群組並按發送；網站不能代你自動向群組發訊息。</p>
+  </div>
+ </section>
+ <section id="posts" class="tab">
+  <div class="card"><h2>發佈相片／出街動態</h2>
+   <label>文字內容</label><textarea id="postText" placeholder="分享今次活動…"></textarea>
+   <label>選擇相片</label><input id="postPhoto" type="file" accept="image/*">
+   <div class="row"><button onclick="publishPost()">發佈到網站</button><button class="secondary" onclick="loadPosts()">重新整理</button></div>
+   <p class="muted">連接 Firebase 並設定 Storage／Firestore 規則後，內容可跨裝置同步。未連接時只會暫存在此瀏覽器。</p>
+  </div><div id="postList" class="grid" style="margin-top:14px"></div>
+ </section>
+ <section id="weather" class="tab">
+  <div class="grid">
+   <div class="card"><h2>香港天文台九日天氣預報</h2><div id="forecast">載入中…</div></div>
+   <div class="card"><h2>本港即時天氣</h2><div id="currentWeather">載入中…</div><p class="muted">資料來源：香港天文台公開天氣 API。</p></div>
+   <div class="card"><h2>各區天氣／定位</h2><p class="muted">定位用作顯示你所在位置；天文台公開 API 提供的分區溫度站資料會列於下方。</p><button onclick="enableLocation()">啟用／更新定位</button><div id="districtWeather" style="margin-top:10px">載入中…</div></div>
+   <div class="card"><h2>今日穿衣建議</h2><div id="outfitDetail">讀取天氣後提供一般生活建議。</div></div>
+  </div>
+ </section>
+ <section id="transport" class="tab">
+  <div class="notice">到站時間必須由巴士／港鐵營辦商即時 API 取得。此版本提供查詢入口；請輸入站點 ID／路線等資料。沒有 API 回應時會清楚顯示錯誤，不會估算到站時間。</div>
+  <div class="grid" style="margin-top:14px">
+   <div class="card"><h2>九巴 KMB 到站時間</h2><label>巴士站 ID</label><input id="kmbStop" placeholder="輸入 KMB stop ID"><label>路線（選填）</label><input id="kmbRoute" placeholder="例如 1A"><button onclick="queryKmb()">查詢九巴</button><div id="kmbResult"></div></div>
+   <div class="card"><h2>城巴 Citybus 到站時間</h2><label>巴士站 ID</label><input id="ctbStop" placeholder="輸入 Citybus stop ID"><button onclick="queryCtb()">查詢城巴</button><div id="ctbResult"></div></div>
+   <div class="card"><h2>港鐵列車時間</h2><label>路線代號</label><input id="mtrLine" placeholder="例如 TML、荃灣線 TWL"><label>車站代號</label><input id="mtrStation" placeholder="例如 TUM、CEN"><button onclick="queryMtr()">查詢港鐵</button><div id="mtrResult"></div></div>
+   <div class="card"><h2>輕鐵／其他交通</h2><p class="muted">輕鐵到站資料需按 MTR 開放資料支援的路線及站點格式接入。V1.0.0 暫不會以估算值代替官方實時資料。</p><a href="https://data.gov.hk/" target="_blank" rel="noopener">香港政府資料一線通</a></div>
+  </div>
+ </section>
+ <section id="settings" class="tab">
+  <div class="card"><h2>Firebase 雲端同步</h2><p class="muted">已按你提供的 Firebase 專案設定建立連接。請先在 Firebase Console 啟用 Authentication（匿名登入）、Cloud Firestore 及 Storage。</p>
+   <div class="row"><button onclick="connectFirebase()">連接／重新連接雲端</button><button class="secondary" onclick="syncPosts()">同步相片及貼文</button></div><div id="firebaseInfo" class="muted" style="margin-top:10px">尚未連接。</div>
+  </div>
+  <div class="card" style="margin-top:14px"><h2>定位及私隱</h2><p>定位只會在你按下按鈕並同意瀏覽器權限後使用。網站不會在未經同意下取得位置。</p><p>公開發佈的相片和文字可能被其他網站訪客看到；請勿上載身份證、住址或其他敏感資料。</p></div>
+  <div class="card" style="margin-top:14px"><h2>版本資訊</h2>約人出街 V1.0.0<br><small>香港時間・天氣・交通查詢・相片分享・WhatsApp 邀請</small></div>
+ </section>
+</div>
+<footer>約人出街 V1.0.0 · 天氣資料以香港天文台及官方公開資料為準</footer>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+
+const firebaseConfig = {
+ apiKey:"AIzaSyAagdEPgDY_2koF8E-dpIqeMS3aTRo3cLc",
+ authDomain:"chan-b4286.firebaseapp.com",
+ projectId:"chan-b4286",
+ storageBucket:"chan-b4286.firebasestorage.app",
+ messagingSenderId:"822761856387",
+ appId:"1:822761856387:web:b17b178a145d46e9076ab6",
+ measurementId:"G-Y3N891RF88"
+};
+let app,auth,db,storage,user=null,cloudReady=false,coords=null;
+const $=id=>document.getElementById(id);
+window.showTab=(id)=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));};
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+function tick(){ $('clock').textContent='香港時間：'+new Intl.DateTimeFormat('zh-HK',{timeZone:'Asia/Hong_Kong',dateStyle:'full',timeStyle:'medium'}).format(new Date());}tick();setInterval(tick,1000);
+window.enableLocation=()=>{if(!navigator.geolocation){$('locationText').textContent='此瀏覽器不支援定位。';return;}navigator.geolocation.getCurrentPosition(p=>{coords={lat:p.coords.latitude,lon:p.coords.longitude};$('locStatus').textContent='已取得定位';$('locationText').textContent=`目前位置座標：${coords.lat.toFixed(4)}, ${coords.lon.toFixed(4)}（只在本頁使用）`},e=>{$('locationText').textContent='未能取得定位：'+e.message;},{enableHighAccuracy:true,timeout:12000});};
+const hko='https://data.weather.gov.hk/weatherAPI/opendata/';
+async function getJson(url){const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
+function tempText(data){let t=data?.temperature?.data?.[0]?.value;return t==null?'未有溫度資料':`${t}°C`;}
+window.refreshWeather=loadWeather;
+async function loadWeather(){
+ try{
+  const [f,c,w]=await Promise.all([getJson(hko+'weather.php?dataType=fnd&lang=tc'),getJson(hko+'weather.php?dataType=rhrread&lang=tc'),getJson(hko+'weather.php?dataType=warnsum&lang=tc')]);
+  const today=f.weatherForecast?.[0];const temp=tempText(c);$('homeTemp').textContent=temp;$('homeWeather').textContent=(today?.week||'今日')+' · '+(today?.forecastWeather||'天氣資料已更新');
+  const rain=c.rainfall?.data?.filter(x=>x.max>0).length||0;let advice='按天氣及個人感受穿著舒適衣物。';
+  if((c.temperature?.data?.[0]?.value??24)>=28)advice='天氣偏熱：建議短袖、透氣衣物及做好防曬。';
+  else if((c.temperature?.data?.[0]?.value??24)<=17)advice='天氣較涼：建議長袖或加件薄外套。';
+  if(rain>0)advice+=' 有雨機會，記得帶雨傘。';
+  $('outfit').textContent='穿衣建議：'+advice;$('outfitDetail').textContent=advice;
+  $('currentWeather').innerHTML=`<div class="weatherbig">${temp}</div><div>${c.icon?.map(i=>`<img alt="" width="38" src="https://www.hko.gov.hk/images/HKOWxIconOutline/pic${i}.png">`).join('')||''}</div><div>${c.updateTime||''}</div>`;
+  $('forecast').innerHTML=(f.weatherForecast||[]).map(d=>`<div class="result"><b>${d.week||''} ${d.forecastDate||''}</b><br>${d.forecastWeather||''}<br><small>${d.forecastMintemp?.value??'--'}–${d.forecastMaxtemp?.value??'--'}°C　${d.forecastMinrh?.value??'--'}–${d.forecastMaxrh?.value??'--'}% 濕度</small></div>`).join('');
+  const warnings=Object.values(w).filter(v=>v&&typeof v==='object'&&(v.name||v.warningStatementCode));$('warningBox').innerHTML=warnings.length?warnings.map(x=>`<div class="result">⚠️ ${x.name||x.warningStatementCode}<br><small>${x.actionCode||''} ${x.updateTime||''}</small></div>`).join(''):'目前 API 未回傳生效中的天氣警告（請以天文台官方公告為準）。';
+  const stations=c.temperature?.data||[];$('districtWeather').innerHTML=stations.slice(0,35).map(s=>`<div class="result">${s.place||''}：<b>${s.value}°C</b></div>`).join('')||'暫無分區溫度資料';
+ }catch(e){$('homeWeather').textContent='天氣暫時未能載入：'+e.message;$('forecast').textContent='無法連接天文台 API，請稍後重試。';}
+}
+loadWeather();
+
+window.connectFirebase=async()=>{
+ try{app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);storage=getStorage(app);await signInAnonymously(auth);onAuthStateChanged(auth,u=>{user=u;cloudReady=!!u;$('cloudStatus').textContent=u?'雲端已連接':'雲端未連接';$('firebaseInfo').textContent=u?'已匿名登入 Firebase，使用者識別碼：'+u.uid:'尚未登入';if(u)loadPosts();});}
+ catch(e){$('firebaseInfo').textContent='連接失敗：'+e.message+'。請檢查 Firebase Authentication／網域設定。';}
+};
+window.publishPost=async()=>{
+ const text=$('postText').value.trim(),file=$('postPhoto').files[0];if(!text&&!file){alert('請輸入內容或選擇相片。');return;}
+ try{
+  let photoURL='';if(file){if(file.size>8*1024*1024){alert('相片不可大於 8MB。');return;}
+   if(cloudReady){const path=`posts/${user.uid}/${Date.now()}_${file.name}`;const rr=ref(storage,path);await uploadBytes(rr,file);photoURL=await getDownloadURL(rr);}
+   else photoURL=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);});
+  }
+  const post={text,photoURL,createdAt:Date.now(),author:'訪客'};
+  if(cloudReady)await addDoc(collection(db,'posts'),{...post,createdAt:serverTimestamp(),uid:user.uid});
+  else{const arr=JSON.parse(localStorage.getItem('localPosts')||'[]');arr.unshift(post);localStorage.setItem('localPosts',JSON.stringify(arr));}
+  $('postText').value='';$('postPhoto').value='';await loadPosts();alert(cloudReady?'已發佈並同步至雲端。':'已暫存於此瀏覽器；連接雲端後可同步。');
+ }catch(e){alert('發佈失敗：'+e.message);}
+};
+window.loadPosts=async()=>{
+ let arr=[];try{if(cloudReady){const q=query(collection(db,'posts'),orderBy('createdAt','desc'));const snap=await getDocs(q);arr=snap.docs.map(d=>({id:d.id,...d.data(),createdAt:d.data().createdAt?.toDate?.().getTime?.()||Date.now()}));}else arr=JSON.parse(localStorage.getItem('localPosts')||'[]');}catch(e){$('postList').textContent='讀取貼文失敗：'+e.message;return;}
+ $('postList').innerHTML=arr.map(p=>`<div class="card"><small>${new Date(p.createdAt||Date.now()).toLocaleString('zh-HK')}</small><p>${escapeHtml(p.text||'')}</p>${p.photoURL?`<img class="postimg" src="${p.photoURL}" alt="分享相片">`:''}</div>`).join('')||'<div class="card muted">暫時未有貼文。</div>';
+};
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+window.syncPosts=async()=>{if(!cloudReady){alert('請先連接 Firebase。');return;}await loadPosts();alert('已重新讀取雲端貼文。');};
+window.shareWhatsApp=()=>{const msg=`【約人出街】\n活動：${$('eventName').value}\n日期：${$('eventDate').value}\n時間：${$('eventTime').value}\n集合地點：${$('eventPlace').value}\n備註：${$('eventNote').value}\n發起人：${$('eventHost').value}\n\n有興趣一齊去嗎？`;if(!$('eventName').value.trim()){alert('請先填寫活動名稱。');return;}window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');};
+window.copyInvite=async()=>{const msg=`【約人出街】\n活動：${$('eventName').value}\n日期：${$('eventDate').value}\n時間：${$('eventTime').value}\n集合地點：${$('eventPlace').value}\n備註：${$('eventNote').value}\n發起人：${$('eventHost').value}`;await navigator.clipboard.writeText(msg);alert('已複製邀請內容。');};
+window.queryKmb=async()=>{const stop=$('kmbStop').value.trim(),route=$('kmbRoute').value.trim();if(!stop){$('kmbResult').textContent='請輸入巴士站 ID。';return;}try{const d=await getJson(`https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${encodeURIComponent(stop)}`);const a=(d.data||[]).filter(x=>!route||x.route===route);$('kmbResult').innerHTML=a.length?a.map(x=>`<div class="result"><b>${x.route||''}</b> 往 ${x.dest_tc||x.dest_en||''}<br>${x.eta?new Date(x.eta).toLocaleTimeString('zh-HK'):'未有到站時間'}</div>`).join(''):'API 無回傳符合資料；請核對站點 ID／路線。';}catch(e){$('kmbResult').textContent='查詢失敗：'+e.message;}}
+window.queryCtb=async()=>{const stop=$('ctbStop').value.trim();if(!stop){$('ctbResult').textContent='請輸入巴士站 ID。';return;}try{const d=await getJson(`https://rt.data.gov.hk/v2/eta/ctb/stop/${encodeURIComponent(stop)}`);$('ctbResult').innerHTML=(d.data||[]).map(x=>`<div class="result"><b>${x.route||''}</b> ${x.dest_tc||''}<br>${x.eta?new Date(x.eta).toLocaleTimeString('zh-HK'):'未有到站時間'}</div>`).join('')||'暫無到站資料';}catch(e){$('ctbResult').textContent='查詢失敗：'+e.message;}}
+window.queryMtr=async()=>{const line=$('mtrLine').value.trim().toUpperCase(),sta=$('mtrStation').value.trim().toUpperCase();if(!line||!sta){$('mtrResult').textContent='請輸入路線及車站代號。';return;}try{const d=await getJson(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=${encodeURIComponent(line)}&sta=${encodeURIComponent(sta)}`);const rows=d.data?.[`${line}-${sta}`];$('mtrResult').innerHTML=rows?.length?rows.map(x=>`<div class="result"><b>${x.dest||''}</b><br>月台 ${x.plat||''} · ${x.time||''}</div>`).join(''):(d.message||'暫無班次資料');}catch(e){$('mtrResult').textContent='查詢失敗：'+e.message;}}
+loadPosts();
+</script>
+</body></html>
